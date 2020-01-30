@@ -9,7 +9,7 @@ package arc180006;
 
 
 public interface BoundedQueueInterface<T>{
-
+    
     public boolean offer(T x);
     public T poll();
     public T peek();
