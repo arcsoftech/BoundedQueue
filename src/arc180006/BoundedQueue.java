@@ -11,6 +11,7 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T>{
 	T[] queue;
 	Integer size;
 
+	
 	public BoundedQueue(Integer arraySize) {
 		if (arraySize <= 0) throw new IllegalArgumentException();
 		queue = (T[]) new Object[arraySize];
@@ -31,7 +32,7 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T>{
 	@Override
 	public T poll() {
 		if (size == 0) return null;
-		T front = queue[size-1];
+		T front = queue[0];
 		for (int i = 1; i < size; i++) {
 			queue[i-1] = queue[i];
 		}
@@ -41,7 +42,7 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T>{
 
 	@Override
 	public T peek() {
-		return size == 0 ? null : queue[size-1];
+		return size == 0 ? null : queue[0];
 	}
 
 	@Override
@@ -68,6 +69,15 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T>{
 	}
 	
 
-	
+	public static void main(String[] args) {
+		BoundedQueue<Integer> queue = new BoundedQueue<>(10);
+		
+		for (int i=0; i<10; i++) {
+			queue.offer(i);
+		}
+		for (int i=0; i<10; i++) {
+			System.out.println(queue.poll());
+		}
+	}
 	
 }
