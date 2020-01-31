@@ -45,9 +45,7 @@ class BoundedQueueTest {
 			assertFalse(queue.isEmpty());
 			assertEquals(1, queue.peek());
 		}
-		assertEquals(3, queue.size());
-//		queue.printQueue();
-		
+		assertEquals(3, queue.size());		
 		assertEquals(1,queue.poll());
 		assertEquals(2,queue.poll());
 		assertTrue(queue.offer(4));
@@ -86,6 +84,7 @@ class BoundedQueueTest {
 	
 	@Test
 	void testCopyArray() {
+		Integer[] array2 = new Integer[2];
 		Integer[] array1 = new Integer[3];
 		BoundedQueue<Integer> queue = new BoundedQueue<>(3);
 		assertTrue(queue.isEmpty());
@@ -100,9 +99,28 @@ class BoundedQueueTest {
 			assertEquals(i, array1[i]);
 		}
 		
+		assertThrows(ArrayStoreException.class, () -> queue.toArray(array2));
 	}
 	
-
-	
-
+	@Test
+	void testCopyArray2() {
+		Integer[] array1 = new Integer[3];
+		BoundedQueue<Integer> queue = new BoundedQueue<>(3);
+		assertTrue(queue.isEmpty());
+		for (int i = 0; i <= 2; i++) {
+			queue.offer(i);
+			assertFalse(queue.isEmpty());
+			assertEquals(0, queue.peek());
+		}
+		queue.poll();
+		queue.poll();
+		queue.offer(3);
+		queue.offer(4);
+		queue.offer(5);
+		
+		queue.toArray(array1);
+		for (int i = 0; i <= 2; i++) {
+			assertEquals(i+2, array1[i]);
+		}
+	}
 }
