@@ -1,14 +1,13 @@
+package arc180006;
+
+import java.util.Scanner;
+
 /**
  * BoundedQueueu Class which represents the bounded sized queue.
  *
  *  @author Arihant Chhajed, Cuong Ngo
  *  Ver 1.0: 2020/01/29
  */
-
-package arc180006;
-
-import java.util.Scanner;
-
 public class BoundedQueue<T> implements BoundedQueueInterface<T> {
 
     private int front, rear, size;
@@ -25,6 +24,11 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
         q = (T[]) new Object[this.size];
     }
 
+    /**
+	 * add element x of type T add the rear of the queue
+	 * @param x
+	 * @return
+	 */
     public boolean offer(T x) {
         if (isFull())
             return false;
@@ -34,10 +38,14 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
         return true;
 
     }
-
+    
+    /**
+	 * remove and return the element of type T at the front of the queue
+	 * @return the element which was at front of type T
+	 */
     public T poll() {
         if (isEmpty())
-            return (T) null;
+            return  null;
         T item = q[front];
         front = (front + 1) % size;
         currentLength -= 1;
@@ -45,29 +53,49 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
 
     }
 
+    /**
+	 * 
+	 * @return the front element of type T at the front of the queue
+	 */
     public T peek() {
         if (isEmpty())
-            return (T) null;
+            return  null;
         T item = q[front];
         return item;
     }
 
+    /**
+	 *
+	 * @return the number of elements of the queue
+	 */
     public int size() {
 
         return currentLength;
 
     }
 
+    /**
+	 * check if the queue is empty
+	 * @return true if the queue is empty otherwise false
+	 */
     public boolean isEmpty() {
         return (currentLength == 0);
     }
 
+    /**
+	 * clear the queue and set size to 0
+	 */
     public void clear() {
         front = currentLength = 0;
         rear = size - 1;
 
     }
 
+    /**
+	 * fill user supplied array with the elements of the queue,
+	 * in queue order
+	 * @param a - array of type T supplied by user
+	 */
     public void toArray(T[] a) {
         if (a.length < currentLength)
             throw new ArrayStoreException("Array size is not suffient to store all the elements in queue");
@@ -77,10 +105,17 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
 
     }
 
+    /**
+	 * check if the queue is full
+	 * @return true if the queue is full otherwise false
+	 */
     private boolean isFull() {
         return (currentLength == size);
     }
 
+    /**
+	 * Print the element in the queue
+	 */
     public void printQueue() {
         System.out.print(currentLength + ": ");
         int counter = currentLength;
@@ -113,35 +148,35 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
         whileloop: while (in.hasNext()) {
             int com = in.nextInt();
             switch (com) {
-            case 1: // Move to next element and print it
+            case 1: // Add new element to the queue
                 System.out.println("Please enter value of the element to be inserted:");
                 int val = in.nextInt();
                 lst.offer(Integer.valueOf(val));
                 lst.printQueue();
                 break;
-            case 2: // Move to the previous element and print it
+            case 2: // poll the element at the front of the queue
                 System.out.println("Value of poll item is " + lst.poll());
                 System.out.println("Current Item in Queue: ");
                 lst.printQueue();
                 break;
-            case 3: // Remove element and print the updated list.
+            case 3: // peek the element at the front of the queue
                 System.out.println("Value of peek item is " + lst.peek());
                 System.out.println("Current Item in Queue: ");
                 lst.printQueue();
                 break;
-            case 4: // Add element before the element returned by next() i.e after cursor.
+            case 4: // Check if queue is empty
                 System.out.println("isEmpty output is " + lst.isEmpty());
                 break;
-            case 5: // Add element before the element returned by next() i.e after cursor.
+            case 5: // print the current size of the queue
                 System.out.println("size output is " + lst.size());
                 break;
-            case 6: // Add element before the element returned by next() i.e after cursor.
+            case 6: // clear the queue
                 lst.clear();
                 System.out.println("clear output is ");
                 System.out.println("Current Item in Queue: ");
                 lst.printQueue();
                 break;
-            case 7: // Add element before the element returned by next() i.e after cursor.
+            case 7: // copy the element of queue to user defined array.
                 System.out.println("Please enter the size of the array");
                 Integer[] a = new Integer[in.nextInt()];
                 System.out.println("toArray output is ");
