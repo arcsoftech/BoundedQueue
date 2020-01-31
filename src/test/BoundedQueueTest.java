@@ -17,8 +17,8 @@ class BoundedQueueTest {
 
 	@Test
 	void testZeroSizeQueue() {
-		assertThrows(IllegalArgumentException.class, () -> new BoundedQueue<>(0));
-		assertThrows(IllegalArgumentException.class, () -> new BoundedQueue<>(-10));
+		assertThrows(ArrayStoreException.class, () -> new BoundedQueue<>(0));
+		assertThrows(ArrayStoreException.class, () -> new BoundedQueue<>(-10));
 	}
 	
 	@Test
@@ -45,6 +45,18 @@ class BoundedQueueTest {
 			assertFalse(queue.isEmpty());
 			assertEquals(1, queue.peek());
 		}
+//		queue.printQueue();
+		
+		assertEquals(1,queue.poll());
+		assertEquals(2,queue.poll());
+		assertTrue(queue.offer(4));
+		assertTrue(queue.offer(5));
+		queue.printQueue();
+		assertEquals(3,queue.poll());		
+		assertEquals(4,queue.poll());		
+		assertEquals(5,queue.poll());	
+		assertTrue(queue.isEmpty());
+		
 	}
 	
 
