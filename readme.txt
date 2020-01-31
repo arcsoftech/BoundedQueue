@@ -13,8 +13,9 @@ This is the short project in IDSA class that aims to implement bounded sized que
 
 2. Run the following command:-
 
-Compile : `javac -d bin arc180006\*.java`
-Run: ` java -cp bin; arc180006.BoundedQueue`
+Compile : `javac -d bin arc180006/*.java`
+ChangeDirectory: `cd bin`
+Run: ` java arc180006.BoundedQueue`
 Sample input: `2 3 2 3 5 6 `
 
 3. Enter the operation no. to initiate the operation.
