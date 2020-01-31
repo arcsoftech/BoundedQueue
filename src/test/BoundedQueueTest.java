@@ -84,6 +84,7 @@ class BoundedQueueTest {
 	
 	@Test
 	void testCopyArray() {
+		Integer[] array2 = new Integer[2];
 		Integer[] array1 = new Integer[3];
 		BoundedQueue<Integer> queue = new BoundedQueue<>(3);
 		assertTrue(queue.isEmpty());
@@ -97,6 +98,8 @@ class BoundedQueueTest {
 		for (int i = 0; i <= 2; i++) {
 			assertEquals(i, array1[i]);
 		}
+		
+		assertThrows(ArrayStoreException.class, () -> queue.toArray(array2));
 	}
 	
 	@Test
