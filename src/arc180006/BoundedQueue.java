@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class BoundedQueue<T> implements BoundedQueueInterface<T> {
 
     private int front, rear, size;
-    private int currentSize;
+    private int currentLength;
     private T[] q;
 
     @SuppressWarnings("unchecked")
@@ -23,7 +23,7 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
         if (size <= 0)
             throw new ArrayStoreException("Queue cannot have negative or zero size");
         this.size= size;
-        front = currentSize = 0;
+        front = currentLength = 0;
         rear = size - 1;
         q = (T[]) new Object[this.size];
     }
@@ -33,7 +33,7 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
             return false;
         rear = (rear + 1) % this.size;
         q[rear] = x;
-        currentSize = currentSize + 1;
+        currentLength = currentLength + 1;
         return true;
 
     }
@@ -43,7 +43,7 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
             return (T) null;
         T item = q[front];
         front = (front + 1) % size;
-        currentSize -= 1;
+        currentLength -= 1;
         return item;
 
     }
@@ -57,41 +57,44 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
 
     public int size() {
 
-        return currentSize;
+        return currentLength;
 
     }
 
     public boolean isEmpty() {
-        return (currentSize == 0);
+        return (currentLength == 0);
     }
 
-    @SuppressWarnings("unchecked")
     public void clear() {
-        front = currentSize = 0;
+        front = currentLength = 0;
         rear = size - 1;
-        q = (T[]) new Object[size];
 
     }
 
     public void toArray(T[] a) {
-        if(a.length < currentSize)
+        if(a.length < currentLength)
             throw new ArrayStoreException("Array size is not suffient to store all the elements in queue");
         System.arraycopy(q, front, a,  
-        0, currentSize);
+        0, currentLength);
         
     }
 
     private boolean isFull() {
-        return (currentSize == size);
+        return (currentLength == size);
     }
 
     public void printQueue()
     {
-        System.out.print(currentSize + ": ");
-        for(int i = front; i <= rear; i++)
+        System.out.print(currentLength + ": ");
+        int counter = currentLength;
+        int p = front;
+        while (counter!=0)
         {
-            System.out.print(q[i]);
+            System.out.print(q[p]+" ");
+            p= (p+1)%this.size;
+            counter-=1;
         }
+        System.out.println();
         
     }
 
@@ -146,7 +149,7 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
                 Integer[] a = new Integer[in.nextInt()];
                 System.out.println("toArray output is ");
                 lst.toArray(a);
-                for(int i = 0; i < n; i++)
+                for(int i = 0; i < a.length ; i++)
                 {
                     System.out.println(a[i]);
                 }
