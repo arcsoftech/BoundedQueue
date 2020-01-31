@@ -20,8 +20,8 @@ public class BoundedQueue<T> implements BoundedQueueInterface<T> {
 
     @SuppressWarnings("unchecked")
     public BoundedQueue(int size) {
-        if (size < 0)
-            throw new ArrayStoreException("Queue cannot have negative size");
+        if (size <= 0)
+            throw new ArrayStoreException("Queue cannot have negative or zero size");
         this.size= size;
         front = currentSize = 0;
         rear = size - 1;
